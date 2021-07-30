@@ -1,13 +1,17 @@
 # Changes
 
-* 2.1.next in progress
+**For the latest `:git/tag` of `depstar` and its matching `:git/sha`, see the [`depstar` releases page](https://github.com/seancorfield/depstar/releases) on GitHub.**
+
+* v2.1.next in progress
   * Strip out logging and use `println` instead (this makes it easier to play with other tools) -- #98.
   * Do not calculate a basis just to get the aliases -- only read and merge the EDNs -- #97.
   * Fix bad link in docs #95.
 
-* 2.1.267 -- 2021-07-13
+* v2.1.267 1a45f79 -- 2021-07-13
   * Address #87 by adding a new namespace `hf.depstar.api` containing `jar` and `uber` functions which are drop-in replacements for `tools.build.api` versions, but also accept all of the options that `depstar` supports to control the behavior in more detail. In addition, `hf.depstar/build` has been added as a component step to work with the existing `aot` and `pom` functions in that namespace.
   * The documentation has had a major overhaul (including addressing #93 by adding a **Terminology and Conventions** section!).
+
+## Older Versions (w/o matching SHA)
 
 * 2.1.253 -- 2021-07-11
   * Fix #94 by adding `:extra-deps` from `:aliases` to `:deps` used for `pom.xml` synchronization.

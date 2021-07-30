@@ -1,6 +1,6 @@
 # CLI Tools Usage
 
-If you are using the latest prerelease of the Clojure CLI, 1.10.3.905 onward, you can install `depstar` as a "tool" instead of updating your `deps.edn` file and then invoke it using the following commands:
+If you are using at least version 1.10.3.933 of the Clojure CLI, you can install `depstar` as a "tool" instead of updating your `deps.edn` file and then invoke it using the following commands:
 
 ```bash
 clojure -Ttools install com.github.seancorfield/depstar '{:git/tag "v2.1.267"}' :as depstar
@@ -16,3 +16,12 @@ clojure -Tdepstar jar :jar MyLib.jar
 * `build` -- build a JAR file -- either `:jar-type :thin` or `:jar-type :uber` -- from the project and any `:target-dir` directory.
 
 See [Usage with `tools.build`](tools-build.md) for more details of all these tasks. See [All the Options](options.md) for the full list of options that these `depstar` commands accept.
+
+You can ask the CLI to show the documentation for the installed `depstar` "tool":
+
+```bash
+# show all the documentation:
+clojure -A:deps -Tdepstar help/doc
+# show documentation just for the pom function:
+clojure -A:deps -Tdepstar help/doc :fn pom
+```
