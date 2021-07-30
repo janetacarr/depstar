@@ -7,7 +7,7 @@
 ;; com.github.seancorfield/depstar to your :build alias:
 
 ;; :build {:deps {io.github.clojure/tools.build
-;;                {:git/tag "v0.1.4" :git/sha "169fef9"}
+;;                {:git/tag "v0.1.7" :git/sha "8a3abc2"}
 ;;                com.github.seancorfield/depstar
 ;;                {:mvn/version "2.1.267"}}
 ;;         :ns-default build}

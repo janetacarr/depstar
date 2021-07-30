@@ -11,7 +11,7 @@
                          {:git/tag "v0.4.0" :git/sha "334f2e2"}}
             :exec-fn cognitect.test-runner.api/test}
            :build {:deps {io.github.clojure/tools.build
-                          {:git/tag "v0.1.4" :git/sha "169fef9"}
+                          {:git/tag "v0.1.7" :git/sha "8a3abc2"}
                           com.github.seancorfield/depstar {:local/root "."}}
                    :ns-default build}
            :jar {:exec-fn hf.depstar/jar
