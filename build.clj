@@ -9,7 +9,7 @@
 ;; :build {:deps {io.github.clojure/tools.build
 ;;                {:git/tag "v0.1.7" :git/sha "8a3abc2"}
 ;;                com.github.seancorfield/depstar
-;;                {:mvn/version "2.1.267"}}
+;;                {:mvn/version "2.1.278"}}
 ;;         :ns-default build}
 
 (ns build

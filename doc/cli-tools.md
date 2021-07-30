@@ -3,7 +3,7 @@
 If you are using at least version 1.10.3.933 of the Clojure CLI, you can install `depstar` as a "tool" instead of updating your `deps.edn` file and then invoke it using the following commands:
 
 ```bash
-clojure -Ttools install com.github.seancorfield/depstar '{:git/tag "v2.1.267"}' :as depstar
+clojure -Ttools install com.github.seancorfield/depstar '{:git/tag "v2.1.278"}' :as depstar
 # make an uberjar:
 clojure -Tdepstar uberjar :jar MyProject.jar
 # make a thin JAR:
