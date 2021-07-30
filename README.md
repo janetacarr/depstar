@@ -10,11 +10,11 @@ The latest versions on Clojars and on cljdoc:
 
 [![Clojars Project](https://clojars.org/com.github.seancorfield/depstar/latest-version.svg)](https://clojars.org/com.github.seancorfield/depstar) [![cljdoc badge](https://cljdoc.org/badge/com.github.seancorfield/depstar?2.1.267)](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT)
 
-The documentation on [cljdoc.org](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT) is for the current version of `depstar` (with these new sections coming soon):
+The documentation on [cljdoc.org](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT) is for the current version of `depstar`:
 
 * [Getting Started](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT/doc/getting-started)
-* [Building a Library JAR](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT/doc/library)
-* [Building an Application JAR](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT/doc/application)
+* [Building a Library JAR](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT/doc/getting-started/building-a-library-jar)
+* [Building an Application JAR](https://cljdoc.org/d/com.github.seancorfield/depstar/CURRENT/doc/getting-started/building-an-application-jar)
 * Feedback via [issues](https://github.com/seancorfield/depstar/issues) or in the [`#depstar` channel on the Clojurians Slack](https://clojurians.slack.com/messages/C01AK5V8HPT/).
 
 The documentation on GitHub is for **develop** since the 2.1.267 release -- [see the CHANGELOG](https://github.com/seancorfield/depstar/blob/develop/CHANGELOG.md) and then read the [corresponding updated documentation](https://github.com/seancorfield/depstar/tree/develop/doc) on GitHub if you want.
