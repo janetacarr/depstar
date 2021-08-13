@@ -19,4 +19,4 @@ jobs:
         with:
           tools-deps: '1.10.3.933'
       - name: Run Tests
-        run: clojure -X:test
+        run: clojure -T:build ci

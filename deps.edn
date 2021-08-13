@@ -4,33 +4,44 @@
         org.clojure/tools.namespace {:mvn/version "1.1.0"}
         org.apache.logging.log4j/log4j-core {:mvn/version "2.14.1"}
         org.slf4j/slf4j-nop {:mvn/version "1.7.30"}}
+
  :tools/usage {:ns-default hf.depstar}
- :aliases {:test
-           {:extra-paths ["test"]
-            :extra-deps {io.github.cognitect-labs/test-runner
-                         {:git/tag "v0.4.0" :git/sha "334f2e2"}}
-            :exec-fn cognitect.test-runner.api/test}
-           :build {:deps {io.github.clojure/tools.build
-                          {:git/tag "v0.1.7" :git/sha "8a3abc2"}
-                          com.github.seancorfield/depstar {:local/root "."}}
-                   :ns-default build}
-           :jar {:exec-fn hf.depstar/jar
-                 :exec-args {:jar "depstar.jar" :sync-pom true}}
-           :deploy {:replace-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
-                    :exec-fn deps-deploy.deps-deploy/deploy
-                    :exec-args {:installer :remote :artifact "depstar.jar"}}
-           ;; the following aliases are all tests for particular issues:
-           :test-issue-5
-           {:replace-deps {clj-time/clj-time  {:mvn/version "0.15.2"}
-                           java-time-literals {:mvn/version "2018-04-06"}}}
-           :test-issue-7
-           {:replace-deps {javax.xml.bind/jaxb-api {:mvn/version "2.3.0"}}}
-           :test-issue-22
-           {:replace-deps {javax.xml.bind/jaxb-api {:mvn/version "2.3.0"}}}
-           :test-issue-64
-           {:extra-paths ["test-64"]}
-           :direct-linking ["-Dclojure.compiler.direct-linking=true"]
-           :test-issue-65
-           {:extra-paths ["test-65"]}
-           :test-issue-66
-           {:replace-deps {org.danielsz/lang-utils {:mvn/version "0.1.3"}}}}}
+
+ :aliases
+ {;; for help: clojure -A:deps -T:build help/doc
+  :build {:deps {io.github.clojure/tools.build {:git/tag "v0.1.8" :git/sha "38d2780"}
+                 com.github.seancorfield/depstar {:local/root "."}}
+          :ns-default build}
+
+  ;; running tests/checks of various kinds:
+  :test {:extra-paths ["test"]
+         :extra-deps {io.github.cognitect-labs/test-runner
+                      {:git/tag "v0.4.0" :git/sha "334f2e2"}}
+         ;; so we can run both ways:
+         :exec-fn cognitect.test-runner.api/test
+         :main-opts ["-m" "cognitect.test-runner"]}
+
+  ;; first run: clojure -T:build ci
+  ;; then: clojure -T:deploy target/d<TAB>
+  :deploy
+  {:deps {slipset/deps-deploy {:git/url "https://github.com/slipset/deps-deploy"
+                               :sha "b4359c5d67ca002d9ed0c4b41b710d7e5a82e3bf"}}
+   :exec-fn deps-deploy.deps-deploy/deploy
+   :exec-args {:installer :remote
+               :pom-file "target/classes/META-INF/maven/com.github.seancorfield/depstar/pom.xml"}}
+
+  ;; the following aliases are all tests for particular issues:
+  :test-issue-5
+  {:replace-deps {clj-time/clj-time  {:mvn/version "0.15.2"}
+                  java-time-literals {:mvn/version "2018-04-06"}}}
+  :test-issue-7
+  {:replace-deps {javax.xml.bind/jaxb-api {:mvn/version "2.3.0"}}}
+  :test-issue-22
+  {:replace-deps {javax.xml.bind/jaxb-api {:mvn/version "2.3.0"}}}
+  :test-issue-64
+  {:extra-paths ["test-64"]}
+  :direct-linking ["-Dclojure.compiler.direct-linking=true"]
+  :test-issue-65
+  {:extra-paths ["test-65"]}
+  :test-issue-66
+  {:replace-deps {org.danielsz/lang-utils {:mvn/version "0.1.3"}}}}}

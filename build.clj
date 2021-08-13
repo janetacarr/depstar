@@ -1,57 +1,75 @@
-;; this is based on the tools.build guide examples but
-;; uses hf.depstar.api functions for jar and uber instead
-;; of the "built-in" versions (from tools.build.api) so
-;; that you can get the exclude/merge behavior from depstar
-
-;; to use depstar with tools.build, add a dependency on
-;; com.github.seancorfield/depstar to your :build alias:
-
-;; :build {:deps {io.github.clojure/tools.build
-;;                {:git/tag "v0.1.7" :git/sha "8a3abc2"}
-;;                com.github.seancorfield/depstar
-;;                {:mvn/version "2.1.278"}}
-;;         :ns-default build}
-
 (ns build
+  "depstar's build script.
+
+  Also serves as an example of using hf.depstar.api as
+  a drop-in replacement for jar and uber from tools.build.
+
+  clojure -T:build run-tests
+
+  clojure -T:build ci
+
+  For more information, run:
+
+  clojure -A:deps -T:build help/doc"
   (:require [clojure.tools.build.api :as b]
+            [clojure.tools.deps.alpha :as t]
             [hf.depstar.api :as d]))
 
-(def lib 'my/lib1)
+(def lib 'com.github.seancorfield/depstar)
 (def version (format "2.1.%s" (b/git-count-revs nil)))
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
 (def uber-file (format "target/%s-%s-standalone.jar" (name lib) version))
 
-(defn clean [_]
+(defn clean "Remove the target folder." [_]
+  (println "\nCleaning target...")
   (b/delete {:path "target"}))
 
-(defn jar [_]
+(defn jar "Build the library JAR file." [_]
+  (println "\nWriting pom.xml...")
   (b/write-pom {:class-dir class-dir
                 :lib lib
                 :version version
+                :scm (str "v" version)
                 :basis basis
                 :src-dirs ["src"]})
-  (b/copy-dir {:src-dirs ["src" "resources"]
+  (println "Copying src...")
+  (b/copy-dir {:src-dirs ["src"]
                :target-dir class-dir})
-  ;; replacement for b/jar:
+  (println (str "Building jar " jar-file "..."))
+  ;; Use depstar's replacement for b/jar:
   (d/jar {:class-dir class-dir
           :jar-file jar-file}))
 
-(defn prep [_]
+(defn run-tests "Run regular tests." [_]
+  (let [basis    (b/create-basis {:aliases [:test]})
+        combined (t/combine-aliases basis [:test])
+        cmds     (b/java-command {:basis     basis
+                                  :java-opts (:jvm-opts combined)
+                                  :main      'clojure.main
+                                  :main-args ["-m" "cognitect.test-runner"]})
+        {:keys [exit]} (b/process cmds)]
+    (when-not (zero? exit)
+      (throw (ex-info "Tests failed" {})))))
+
+(defn ci "Run the CI pipeline of tests (and build the JAR)." [opts]
+  (-> opts (run-tests) (clean) (jar)))
+
+(defn prep "From tools.build Guide." [_]
   (b/write-pom {:class-dir class-dir
                 :lib lib
                 :version version
                 :basis basis
                 :src-dirs ["src"]})
-  (b/copy-dir {:src-dirs ["src" "resources"]
+  (b/copy-dir {:src-dirs ["src"]
                :target-dir class-dir}))
 
-(defn uber [_]
+(defn uber "From tools.build Guide (but using depstar)." [_]
   (b/compile-clj {:basis basis
                   :src-dirs ["src"]
                   :class-dir class-dir})
-  ;; replacement for b/uber:
+  ;; Use depstar's replacement for b/uber:
   (d/uber {:class-dir class-dir
            :uber-file uber-file :main 'hf.depstar.uberjar
            :basis basis}))
