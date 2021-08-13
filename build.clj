@@ -31,7 +31,7 @@
   (b/write-pom {:class-dir class-dir
                 :lib lib
                 :version version
-                :scm (str "v" version)
+                :scm {:tag (str "v" version)}
                 :basis basis
                 :src-dirs ["src"]})
   (println "Copying src...")
@@ -60,6 +60,7 @@
   (b/write-pom {:class-dir class-dir
                 :lib lib
                 :version version
+                :scm {:tag (str "v" version)}
                 :basis basis
                 :src-dirs ["src"]})
   (b/copy-dir {:src-dirs ["src"]
