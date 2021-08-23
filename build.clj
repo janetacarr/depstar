@@ -13,6 +13,7 @@
   clojure -A:deps -T:build help/doc"
   (:require [clojure.tools.build.api :as b]
             [clojure.tools.deps.alpha :as t]
+            [deps-deploy.deps-deploy :as dd]
             [hf.depstar.api :as d]))
 
 (def lib 'com.github.seancorfield/depstar)
@@ -55,6 +56,11 @@
 
 (defn ci "Run the CI pipeline of tests (and build the JAR)." [opts]
   (-> opts (run-tests) (clean) (jar)))
+
+(defn deploy "Deploy the JAR to Clojars." [opts]
+  (dd/deploy (merge {:installer :remote :artifact jar-file
+                     :pom-file (b/pom-path {:lib lib :class-dir class-dir})}
+                    opts)))
 
 (defn prep "From tools.build Guide." [_]
   (b/write-pom {:class-dir class-dir

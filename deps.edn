@@ -9,24 +9,17 @@
 
  :aliases
  {;; for help: clojure -A:deps -T:build help/doc
-  :build {:deps {io.github.clojure/tools.build {:git/tag "v0.1.8" :git/sha "38d2780"}
-                 com.github.seancorfield/depstar {:local/root "."}}
-          :ns-default build}
+  :build
+  {:deps {io.github.clojure/tools.build {:git/tag "v0.1.9" :git/sha "6736c83"}
+          com.github.seancorfield/depstar {:local/root "."}
+          io.github.slipset/deps-deploy {:sha "b4359c5d67ca002d9ed0c4b41b710d7e5a82e3bf"}}
+   :ns-default build}
 
   ;; running tests/checks of various kinds:
-  :test {:extra-paths ["test"]
-         :extra-deps {io.github.cognitect-labs/test-runner
-                      {:git/tag "v0.4.0" :git/sha "334f2e2"}}
-         :exec-fn cognitect.test-runner.api/test}
-
-  ;; first run: clojure -T:build ci
-  ;; then: clojure -T:deploy target/d<TAB>
-  :deploy
-  {:deps {slipset/deps-deploy {:git/url "https://github.com/slipset/deps-deploy"
-                               :sha "b4359c5d67ca002d9ed0c4b41b710d7e5a82e3bf"}}
-   :exec-fn deps-deploy.deps-deploy/deploy
-   :exec-args {:installer :remote
-               :pom-file "target/classes/META-INF/maven/com.github.seancorfield/depstar/pom.xml"}}
+  :test ; can also run clojure -X:test
+  {:extra-paths ["test"]
+   :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.4.0" :git/sha "334f2e2"}}
+   :exec-fn cognitect.test-runner.api/test}
 
   ;; the following aliases are all tests for particular issues:
   :test-issue-5
