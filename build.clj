@@ -1,9 +1,6 @@
 (ns build
   "depstar's build script.
 
-  Also serves as an example of using hf.depstar.api as
-  a drop-in replacement for jar and uber from tools.build.
-
   clojure -T:build run-tests
 
   clojure -T:build ci
@@ -12,71 +9,19 @@
 
   clojure -A:deps -T:build help/doc"
   (:require [clojure.tools.build.api :as b]
-            [clojure.tools.deps.alpha :as t]
-            [deps-deploy.deps-deploy :as dd]
-            [hf.depstar.api :as d]))
+            [org.corfield.build :as bb]))
 
 (def lib 'com.github.seancorfield/depstar)
 (def version (format "2.1.%s" (b/git-count-revs nil)))
-(def class-dir "target/classes")
-(def basis (b/create-basis {:project "deps.edn"}))
-(def jar-file (format "target/%s-%s.jar" (name lib) version))
-(def uber-file (format "target/%s-%s-standalone.jar" (name lib) version))
-
-(defn clean "Remove the target folder." [_]
-  (println "\nCleaning target...")
-  (b/delete {:path "target"}))
-
-(defn jar "Build the library JAR file." [_]
-  (println "\nWriting pom.xml...")
-  (b/write-pom {:class-dir class-dir
-                :lib lib
-                :version version
-                :scm {:tag (str "v" version)}
-                :basis basis
-                :src-dirs ["src"]})
-  (println "Copying src...")
-  (b/copy-dir {:src-dirs ["src"]
-               :target-dir class-dir})
-  (println (str "Building jar " jar-file "..."))
-  ;; Use depstar's replacement for b/jar:
-  (d/jar {:class-dir class-dir
-          :jar-file jar-file}))
-
-(defn run-tests "Run regular tests." [_]
-  (let [basis    (b/create-basis {:aliases [:test]})
-        combined (t/combine-aliases basis [:test])
-        cmds     (b/java-command {:basis     basis
-                                  :java-opts (:jvm-opts combined)
-                                  :main      'clojure.main
-                                  :main-args ["-m" "cognitect.test-runner"]})
-        {:keys [exit]} (b/process cmds)]
-    (when-not (zero? exit)
-      (throw (ex-info "Tests failed" {})))))
 
 (defn ci "Run the CI pipeline of tests (and build the JAR)." [opts]
-  (-> opts (run-tests) (clean) (jar)))
+  (-> opts
+      (assoc :lib lib :version version)
+      (bb/run-tests)
+      (bb/clean)
+      (bb/jar)))
 
 (defn deploy "Deploy the JAR to Clojars." [opts]
-  (dd/deploy (merge {:installer :remote :artifact jar-file
-                     :pom-file (b/pom-path {:lib lib :class-dir class-dir})}
-                    opts)))
-
-(defn prep "From tools.build Guide." [_]
-  (b/write-pom {:class-dir class-dir
-                :lib lib
-                :version version
-                :scm {:tag (str "v" version)}
-                :basis basis
-                :src-dirs ["src"]})
-  (b/copy-dir {:src-dirs ["src"]
-               :target-dir class-dir}))
-
-(defn uber "From tools.build Guide (but using depstar)." [_]
-  (b/compile-clj {:basis basis
-                  :src-dirs ["src"]
-                  :class-dir class-dir})
-  ;; Use depstar's replacement for b/uber:
-  (d/uber {:class-dir class-dir
-           :uber-file uber-file :main 'hf.depstar.uberjar
-           :basis basis}))
+  (-> opts
+      (assoc :lib lib :version version)
+      (bb/deploy)))
