@@ -1,9 +1,10 @@
 (ns build
   "depstar's build script.
 
-  clojure -T:build run-tests
-
   clojure -T:build ci
+
+  Run tests via:
+  clojure -X:test
 
   For more information, run:
 
