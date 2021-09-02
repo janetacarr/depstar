@@ -2,6 +2,9 @@
 
 **For the latest `:git/tag` of `depstar` and its matching `:git/sha`, see the [`depstar` releases page](https://github.com/seancorfield/depstar/releases) on GitHub.**
 
+* 2.1.next in progress
+  * Clean up build/CI infrastructure, add Gitpod badge.
+
 * v2.1.278 672c142 -- 2021-07-29
   * Strip out logging and use `println` instead (this makes it easier to play with other tools) -- #98.
   * Do not calculate a basis just to get the aliases -- only read and merge the EDNs -- #97.
