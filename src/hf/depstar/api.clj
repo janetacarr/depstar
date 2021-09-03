@@ -24,11 +24,13 @@
   build a (thin) JAR file from the contents of the specified
   directory, with the specified main class in the manifest."
   [{:keys [class-dir jar-file main ; tools.build.api/jar
-           aliases repro] ; our additional options
+           aliases mvn/local-repo repro] ; our additional options
     :as options}]
   (impl/task* (merge (dissoc options :class-dir :jar-file :main)
                      {:basis
                       (t/create-basis (cond-> {}
+                                        local-repo
+                                        (assoc-in [:extra :mvn/local-repo] local-repo)
                                         (seq aliases)
                                         (assoc :aliases aliases)
                                         repro
@@ -50,10 +52,12 @@
   contents of the specified directory, with the specified
   main class in the manifest."
   [{:keys [basis class-dir main uber-file ; tools.build.api/uber
-           aliases repro] ; our additional options
+           aliases mvn/local-repo repro] ; our additional options
     :as options}]
   (let [basis (or basis
                   (t/create-basis (cond-> {}
+                                    local-repo
+                                    (assoc-in [:extra :mvn/local-repo] local-repo)
                                     (seq aliases)
                                     (assoc :aliases aliases)
                                     repro

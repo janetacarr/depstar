@@ -43,7 +43,7 @@
   If :basis is provided in the initial options, that is returned as-is
   instead of calculating a new project basis."
   [options]
-  (let [{:keys [aliases aot basis group-id jar-type jvm-opts paths-only repro]
+  (let [{:keys [aliases aot basis group-id jar-type jvm-opts mvn/local-repo paths-only repro]
          :as options}
         (preprocess-options
          (merge {:aliases  []
@@ -71,5 +71,6 @@
     (let [{:keys [resolve-args] :as basis}
           (or basis
               (t/create-basis (cond-> {:aliases aliases}
+                                local-repo (assoc-in [:extra :mvn/local-repo] local-repo)
                                 repro (assoc :user nil))))]
       (assoc options :basis (update basis :deps merge (:extra-deps resolve-args))))))

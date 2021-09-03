@@ -106,13 +106,14 @@
   * classpath-roots
   "
   [{:keys [aot basis classpath compile-aliases compile-batch compile-fn
-           compile-ns delete-on-exit jar-type jvm-opts main-class
+           compile-ns delete-on-exit jar-type jvm-opts mvn/local-repo main-class
            paths-only repro target-dir]
     :as options}]
   (let [jvm-opts    (if (sequential? jvm-opts) (vec jvm-opts) [])
 
         c-basis     (if-let [c-aliases (not-empty compile-aliases)]
                       (t/create-basis (cond-> {:aliases c-aliases}
+                                        local-repo (assoc-in [:extra :mvn/local-repo] local-repo)
                                         repro (assoc :user nil)))
                       basis)
 
