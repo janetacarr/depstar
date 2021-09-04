@@ -1,9 +1,9 @@
 ;; copyright (c) 2020-2021 sean corfield, all rights reserved
 
 (ns hf.depstar
-  "Entry point for clojure -X and -T options, as well as usage
+  "Entry point for clojure `-X` and `-T` options, as well as usage
   in a tools.build script.
-
+```clojure
   (ns build
     (:require [hf.depstar :as d]))
 
@@ -11,17 +11,17 @@
       (d/pom)
       (d/aot)
       (d/build))
-
-  where options-map must contain, at a minimum, :jar (output
-  file) and :jar-type (:thin or :uber).
+```
+  where options-map must contain, at a minimum, `:jar` (output
+  file) and `:jar-type` (`:thin` or `:uber`).
 
   There are also two high-level tasks that combine the three
-  steps above (and do not require :jar-type):
-
+  steps above (and do not require `:jar-type`):
+```clojure
   (d/jar options-map)
 
   (d/uberjar options-map)
-
+```
   If you are using tools.build for creating/syncing pom.xml
   and/or for compiling Clojure source code, you can use the
   functions in hf.depstar.api instead, as drop-in replacements

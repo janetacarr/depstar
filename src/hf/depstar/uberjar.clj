@@ -1,6 +1,8 @@
 ;; copyright (c) 2018-2021 sean corfield, ghadi shayban
 
 (ns hf.depstar.uberjar
+  "If you want to use `depstar` as a library, outside of `tools.build`
+  usage, this provides a general purpose `build-jar` function."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.string :as str]

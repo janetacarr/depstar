@@ -1,6 +1,6 @@
 ;; copyright (c) 2018-2021 sean corfield, ghadi shayban
 
-(ns hf.depstar.specs
+(ns ^:no-doc hf.depstar.specs
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as string]
             [hf.depstar.files :as f]

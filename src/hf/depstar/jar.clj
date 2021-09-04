@@ -1,4 +1,4 @@
-(ns hf.depstar.jar
+(ns ^:no-doc hf.depstar.jar
   (:require [hf.depstar.uberjar :as uber])
   (:gen-class))
 
