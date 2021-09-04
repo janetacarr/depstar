@@ -2,7 +2,7 @@
 
 **For the latest `:git/tag` of `depstar` and its matching `:git/sha`, see the [`depstar` releases page](https://github.com/seancorfield/depstar/releases) on GitHub.**
 
-* 2.1.next in progress
+* v2.1.297 -- 2021-09-04
   * Support `:mvn/local-repo` directly as an option.
   * Clean up build/CI infrastructure, add Gitpod badge, update deps.
 

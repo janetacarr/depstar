@@ -20,3 +20,20 @@ clojure -P -X:uberjar
 # cache your project's build dependencies:
 clojure -P -A:extra:stuff
 ```
+
+If your CI solution doesn't cache `~/.m2/repository` and expects you to use a custom directory, you can tell the Clojure CI to use that via `-Sdeps`:
+
+```bash
+# cache depstar's own dependencies:
+clojure -Sdeps '{:mvn/local-repo "my-m2"}' -P -X:uberjar
+# cache your project's build dependencies:
+clojure -Sdeps '{:mvn/local-repo "my-m2"}' -P -A:extra:stuff
+```
+
+In such cases, you will also need to tell `depstar` to use that local repo when it builds a basis internally, via `depstar`'s `:mvn/local-repo` option:
+
+```bash
+clojure -Sdeps '{:mvn/local-repo "my-m2"}' -X:uberjar :mvn/local-repo '"my-m2"' :aliases '[:extra :stuff]'
+```
+
+The `-Sdeps` here tells the Clojure CLI to use `my-m2` as the local repo and the `:mvn/local-repo` option tells `depstar` to use `my-m2` as the local repo whenever it creates a basis internally.

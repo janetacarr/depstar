@@ -21,6 +21,7 @@ The Clojure CLI added an `-X` option (in 1.10.1.697) to execute a specific funct
 * `:jvm-opts` -- an optional vector of JVM option strings that should be passed to the `java` subprocess that performs AOT compilation
 * `:main-class` -- the name of the main class for an uberjar (can be specified as a Clojure symbol or a quoted string; like the legacy `-m` / `--main` option; used as the main namespace to compile if `:aot` is `true`)
 * `:manifest` -- an optional hash map of additional properties to add to `MANIFEST.MF`, e.g., `:manifest {:class-path "/path/to/some.jar"}` will add the line `Class-Path: /path/to/some.jar` that file
+* `:mvn/local-repo` -- if specified, `depstar` will use this for the local (Maven) repository in any basis calculations; this is sometimes useful when [using `depstar` in a CI pipeline](depstar-ci.md)
 * `:no-pom` -- if `true`, ignore the `pom.xml` file (like the legacy `-n` / `--no-pom` option)
 * `:paths-only` -- if `true`, only use `:paths` and `:extra-paths` from the project basis (and do not treat `:local/root` and `:git/url` as providing source dependencies); new in 2.0.206
 * `:pom-file` -- if specified, should be a string that identifies the `pom.xml` file to use (an absolute or relative path)
@@ -34,7 +35,7 @@ You can make this shorter by adding `:exec-fn` to your alias with some of the ar
 
 ```clojure
   ;; a new :uberjar alias to build a project-specific JAR file:
-  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
+  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}
             :exec-fn hf.depstar/uberjar
             :exec-args {:jar "MyProject.jar"
                         :aot true
@@ -63,7 +64,7 @@ user `deps.edn` file). For example:
   ;; using an alias as a value for :jvm-opts:
   :uberjar
   {:replace-deps
-   {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
+   {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}
             :exec-fn hf.depstar/uberjar
             :exec-args {:jar "MyProject.jar"
                         :aot true
