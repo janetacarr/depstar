@@ -2,6 +2,9 @@
 
 **For the latest `:git/tag` of `depstar` and its matching `:git/sha`, see the [`depstar` releases page](https://github.com/seancorfield/depstar/releases) on GitHub.**
 
+* v2.1.next in progress
+  * Fix #102 by converting certain options to strings _after_ alias lookup instead of _before_ (breakage introduced in 2.1.245).
+
 * v2.1.297 9626e19 -- 2021-09-04
   * Support `:mvn/local-repo` directly as an option -- #100.
   * Clean up build/CI infrastructure, add Gitpod badge, update deps.

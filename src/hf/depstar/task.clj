@@ -45,17 +45,17 @@
   [options]
   (let [{:keys [aliases aot basis group-id jar-type jvm-opts mvn/local-repo paths-only repro]
          :as options}
-        (preprocess-options
-         (merge {:aliases  []
-                 :jar-type :uber
-                 :jvm-opts []
-                 :pom-file "pom.xml"
-                 :repro    true}
-                (-> options
-                    ;; these can be symbols or strings:
-                    (update :jar        #(some-> % str))
-                    (update :main-class #(some-> % str))
-                    (update :target-dir #(some-> % str)))))]
+        (-> (preprocess-options
+             (merge {:aliases  []
+                     :jar-type :uber
+                     :jvm-opts []
+                     :pom-file "pom.xml"
+                     :repro    true}
+                    options))
+            ;; these can be symbols or strings:
+            (update :jar        #(some-> % str))
+            (update :main-class #(some-> % str))
+            (update :target-dir #(some-> % str)))]
 
     (when (and aot (= :thin jar-type))
       (println ":aot is not recommended for a 'thin' JAR!"))
