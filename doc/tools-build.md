@@ -6,7 +6,7 @@ To use `depstar` as a library, in your `build.clj` script, your `:build` alias s
 
 ```clojure
   :build {:deps {io.github.clojure/tools.build
-                 {:git/tag "v0.2.0" :git/sha "7cbb94b"}
+                 {:git/tag "v0.3.0" :git/sha "e418fc9"}
                  com.github.seancorfield/depstar
                  ;; this is not the latest version -- see below:
                  {:git/tag "v2.1.297" :git/sha "9626e19"}}
