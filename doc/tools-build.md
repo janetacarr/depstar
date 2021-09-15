@@ -9,7 +9,7 @@ To use `depstar` as a library, in your `build.clj` script, your `:build` alias s
                  {:git/tag "v0.4.0" :git/sha "801a22f"}
                  com.github.seancorfield/depstar
                  ;; this is not the latest version -- see below:
-                 {:git/tag "v2.1.297" :git/sha "9626e19"}}
+                 {:git/tag "v2.1.303" :git/sha "199b0a2"}}
           :ns-default build}
 ```
 

@@ -2,7 +2,7 @@
 
 **For the latest `:git/tag` of `depstar` and its matching `:git/sha`, see the [`depstar` releases page](https://github.com/seancorfield/depstar/releases) on GitHub.**
 
-* v2.1.303 -- 2021-09-15
+* v2.1.303 199b0a2 -- 2021-09-15
   * Fix #102 by converting certain options to strings _after_ alias lookup instead of _before_ (breakage introduced in 2.1.245).
 
 * v2.1.297 9626e19 -- 2021-09-04
