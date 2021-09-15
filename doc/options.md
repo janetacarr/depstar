@@ -35,7 +35,7 @@ You can make this shorter by adding `:exec-fn` to your alias with some of the ar
 
 ```clojure
   ;; a new :uberjar alias to build a project-specific JAR file:
-  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}
+  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
             :exec-fn hf.depstar/uberjar
             :exec-args {:jar "MyProject.jar"
                         :aot true
@@ -64,7 +64,7 @@ user `deps.edn` file). For example:
   ;; using an alias as a value for :jvm-opts:
   :uberjar
   {:replace-deps
-   {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}
+   {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
             :exec-fn hf.depstar/uberjar
             :exec-args {:jar "MyProject.jar"
                         :aot true

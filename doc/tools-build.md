@@ -6,7 +6,7 @@ To use `depstar` as a library, in your `build.clj` script, your `:build` alias s
 
 ```clojure
   :build {:deps {io.github.clojure/tools.build
-                 {:git/tag "v0.3.0" :git/sha "e418fc9"}
+                 {:git/tag "v0.4.0" :git/sha "801a22f"}
                  com.github.seancorfield/depstar
                  ;; this is not the latest version -- see below:
                  {:git/tag "v2.1.297" :git/sha "9626e19"}}
@@ -16,7 +16,7 @@ To use `depstar` as a library, in your `build.clj` script, your `:build` alias s
 **For the latest `:git/tag` of `depstar` and its matching `:git/sha`, see the [`depstar` releases page](https://github.com/seancorfield/depstar/releases) on GitHub.**
 _[This is because cljdoc always generates documentation from the tag, and the documentation always has to be updated to provide the tag's matching SHA afterwards!]_
 
-> Note: the above assumes you have at least version 1.10.3.967 of the Clojure CLI installed! That is the latest stable version as of `depstar` 2.1.297. See [Source Libs and Builds](https://clojure.org/news/2021/07/09/source-libs-builds) for details about the new functionality in this recent prerelease, which includes support for `:git/tag`/`:git/sha` source coordinates. You can find the latest tagged version of `depstar` using this command: `clojure -X:deps find-versions :lib com.github.seancorfield/depstar`
+> Note: the above assumes you have at least version 1.10.3.967 of the Clojure CLI installed! That is the latest stable version as of `depstar` 2.1.303. See [Source Libs and Builds](https://clojure.org/news/2021/07/09/source-libs-builds) for details about the new functionality in this recent prerelease, which includes support for `:git/tag`/`:git/sha` source coordinates. You can find the latest tagged version of `depstar` using this command: `clojure -X:deps find-versions :lib com.github.seancorfield/depstar`
 
 There are two approaches available for using `depstar` for build tasks:
 * Use all of `tools.build` as usual, except use `depstar` for `jar` and `uber` tasks,
