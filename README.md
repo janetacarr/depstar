@@ -1,3 +1,34 @@
+# Use `tools.build`
+
+`depstar` came into existence, in [March 2018](https://github.com/healthfinch/depstar/commit/4aa7b35189693feebc7d7e4a180b8af0326c9164),
+because there was no "built-in" way to create library JAR files
+with the Clojure CLI and `deps.edn` at the time. Over the three and a half years since then, `depstar` has added a lot of functionality
+with the ability to make uberjars, perform AOT compilation, generate a JAR file manifest, and so on. My intent, as maintainer of
+`depstar` since October 2018, has always been to provide an easy-to-use JAR builder as long as there was no "official" solution for that.
+
+In early July, 2021, the Clojure core team [announced `tools.build`](https://clojure.org/news/2021/07/09/source-libs-builds) as an
+"official" solution for building JAR files and performing AOT compilation. In addition, `tools.build` was a toolkit that provided
+functions to copy files, directories, compile Java code, and run shell processes -- things that `depstar` had never been intended for.
+
+For a while, there was a functionality gap between the `uber` task of `tools.build` and the `uberjar` functionality of `depstar`.
+I've been working with [Alex Miller](https://github.com/puredanger) to reduce that gap and with the release of v0.4.0 on September 15,
+parity was achieved. I had already switched most of my open source projects over to `tools.build` for running tests and building
+the JAR files and with that latest release I was able to switch the `build.clj` script at work over to `tools.build` for building
+our production uberjar artifacts! The missing piece (for us at work) had been the merging of the `Log4j2Plugins.dat` files across
+libraries which `depstar` had supported since December 2020 (version 2.0.160) and that is now possible through the `:conflict-handlers`
+option added to `uber` in v0.4.0 of `tools.build`, along with my [log4j2 conflict handler library](https://github.com/seancorfield/build-uber-log4j2-handler).
+
+At this point, `depstar` is no longer needed and only serves to fragment the tooling around the Clojure CLI and `deps.edn` so I am
+sunsetting this library and asking everyone to switch to [`tools.build`](https://github.com/clojure/tools.build) instead. You can
+reduce the amount of "boilerplate" in your `build.clj` by using my [`build-clj` library](https://github.com/seancorfield/build-clj)
+which has equivalent tasks for `clean`, `jar`, and `uber` with "sane defaults" for most options and combines the functionality
+described in the [official `tools.build` guide](https://clojure.org/guides/tools_build). In addition, it has tasks to run your
+tests and deploy your library JAR to Clojars. It's `uber` task provides the log4j2 plugins cache merging functionality by default.
+
+Thank you for all the support and feedback on `depstar` over the last three years!
+
+Please use `tools.build` and build your projects responsibility!
+
 # depstar [![Clojure CI](https://github.com/seancorfield/depstar/actions/workflows/test.yml/badge.svg)](https://github.com/seancorfield/depstar/actions/workflows/test.yml) [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/seancorfield/depstar)
 
 <img src="./depstar_logo.png" />
