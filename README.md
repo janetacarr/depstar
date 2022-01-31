@@ -33,7 +33,7 @@ Please use `tools.build` and build your projects responsibility!
 
 <img src="./depstar_logo.png" />
 
-Builds JARs, uberjars, does AOT, manifest generation, etc for `deps.edn` projects (forked from [healthfinch/depstar](https://github.com/healthfinch/depstar) and enhanced).
+Builds JARs, uberjars, does AOT, manifest generation, etc for `deps.edn` projects (forked from [seancorfield](https://github.com/seancorfield/depstar) whom forked from [healthfinch/depstar](https://github.com/healthfinch/depstar) and enhanced).
 
 ## TL;DR
 

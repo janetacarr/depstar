@@ -12,7 +12,7 @@
   (:require [clojure.tools.build.api :as b]
             [org.corfield.build :as bb]))
 
-(def lib 'com.github.seancorfield/depstar)
+(def lib 'com.github.janetacarr/depstar)
 (def version (format "2.1.%s" (b/git-count-revs nil)))
 
 (defn ci "Run the CI pipeline of tests (and build the JAR)." [opts]
